@@ -40,15 +40,15 @@ const EventEntry = (props) => {
       id="event-entry"
       container
       item
-      direction="row"
+      direction="column"
       justify="space-between"
-      alignItems="flex-start"
-      xs={9}
+      alignItems="center"
+      xs={12}
     >
-      <Grid container item xs={5} justify="flex-start">
+      <Grid container item xs={11} justify="flex-start">
         <div className="guide-title">
           <Chip color="primary" label="1" className="guide-title__chip" />
-          イベント概要を入力しましょう
+          イベント概要を入力
         </div>
         <TextField
           placeholder="イベント名"
@@ -72,10 +72,10 @@ const EventEntry = (props) => {
           variant="outlined"
         />
       </Grid>
-      <Grid container item xs={5} justify="flex-start">
+      <Grid container item xs={11} justify="flex-start">
         <div className="guide-title">
           <Chip color="primary" label="2" className="guide-title__chip" />
-          イベント候補日を入力しましょう
+          イベント候補日を入力
         </div>
         <TextField
           placeholder="例：12/4 18:00~"

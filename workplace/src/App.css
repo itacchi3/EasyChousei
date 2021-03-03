@@ -4,10 +4,9 @@ body {
 }
 
 .app-header {
-  text-align: left;
+  text-align: center;
   font-size: 40px;
   color: #1FB3C7;
-  padding-left: 70px;
 }
 
 .app-content {
