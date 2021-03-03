@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    
+    <form>
+      <h2>イベント登録</h2>
+      
+      <h3>イベント名</h3>
+      <input type='text' id='event_name' name='event_name' placeholder='送別会'/>
+      
+      <h3>説明</h3>
+      <textarea name='description' placeholder='送別会の日程調整しましょう！出欠〆切は◯日。'></textarea>
+
+      <h3>候補日程</h3>
+      <p>
+        ※候補日程／日時を入力してください<br/>
+        候補の区切りは改行で判断されます。<br/>
+      </p>
+      <textarea name='candiates'
+                placeholder='8/7(月) 20:00～&#13;&#10;8/8(火) 20:00～&#13;&#10;8/9(水) 21:00～'></textarea>
+      <br/>
+      <input type='submit' value='出欠表を作る'/>
+    </form>
+  </body>
+</html>

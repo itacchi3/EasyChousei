@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id='event'>
+      <h2>鈴木さん送別会</h2>
+      <h3>説明</h3>
+      <p>送別会の日程調整しましょう！出欠〆切は◯日。</p>
+    </div>
+    <div id='candidates-list'>
+      <table border='1'>
+        <thead>
+          <tr>
+            <th>日程</th>
+            <th>○</th>
+            <th>△</th>
+            <th>×</th>
+            <th>山田</th>
+            <th>佐藤</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8/7(月) 20:00～</td>
+            <td>1人</td>
+            <td>1人</td>
+            <td>0人</td>
+            <td>○</td>
+            <td>△</td>
+          </tr>
+          <tr>
+            <td>8/8(火) 20:00～</td>
+            <td>0人</td>
+            <td>1人</td>
+            <td>1人</td>
+            <td>△</td>
+            <td>○</td>
+          </tr>
+          <tr>
+            <td>8/9(水) 21:00～</td>
+            <td>0人</td>
+            <td>0人</td>
+            <td>2人</td>
+            <td>×</td>
+            <td>×</td>
+          </tr>
+          <tr>
+            <td>コメント</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1次会のみ</td>
+            <td>遅れます</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr/>
+    <div id='register'>
+      <h2>出欠を入力する</h2>
+      <h3>名前</h3>
+      <input type='text' name='participant_name' placeholder='田中'/>
+      <h3>候補日程</h3>
+      8/7(月) 20:00～<input type='button' value='〇'/><input type='button' value='△'/><input type='button' value='×'/><br/>
+      
+      8/8(火) 20:00～<input type='button' value='〇'/><input type='button' value='△'/><input type='button' value='×'/><br/>
+      8/9(水) 21:00～<input type='button' value='〇'/><input type='button' value='△'/><input type='button' value='×'/><br/>
+      <h3>コメント</h3>
+      <input type='text'/><br/>
+      <input type='submit' value='登録する'/>
+    </div>
+  </body>
+</html>
