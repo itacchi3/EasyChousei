@@ -1,0 +1,15 @@
+body {
+  font-family: Hiragino Sans;
+  color: #707070;
+}
+
+.app-header {
+  text-align: left;
+  font-size: 40px;
+  color: #1FB3C7;
+  padding-left: 70px;
+}
+
+.app-content {
+  font-family: ヒラギノ角ゴシック;
+}

@@ -1,0 +1,18 @@
+
+#home {
+  font-size: 24px;
+}
+
+#home .button-area {
+  min-height: 6rem;
+}
+
+#home .message-area {
+  min-height: 14rem;
+}
+
+#home .output-message-area {
+  text-decoration: underline;
+  min-height: 4rem;
+  width: 100%;
+}

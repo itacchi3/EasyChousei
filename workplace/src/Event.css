@@ -1,0 +1,23 @@
+
+#event .Guide-message {
+  font-size: 24px;
+}
+
+#event .guide-title {
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+
+#event .guide-message {
+  font-size: 16px;
+}
+
+#event .guide-title__chip {
+  margin-right: 16px;
+}
+
+#event .table {
+    border-color: #707070;
+    border-style: solid;
+    border-width: thin
+}
