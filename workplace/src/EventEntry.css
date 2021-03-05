@@ -1,13 +1,13 @@
 #event-entry .guide-title {
   font-size: 24px;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 #event-entry .guide-title__chip {
-  margin-right: 16px;
+  margin-right: 10px;
 }
 
 #event-entry .button-area {
-  padding-top: 50px;
+  padding-top: 30px;
 }

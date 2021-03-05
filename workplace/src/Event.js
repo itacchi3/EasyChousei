@@ -111,7 +111,6 @@ const Event = (props) => {
   const registerAttendances = async () => {
     // 2-6.出欠情報登録機能を追加しよう
     const eventId = props.match.params.id;
-    console.log(eventId + " 113");
     const votes = possibleDates.map((possibleDate) => possibleDate.vote);
     const attendeesData = {
       name: name,
@@ -124,21 +123,13 @@ const Event = (props) => {
   };
 
   return (
-    <Grid
-      id="event"
-      container
-      item
-      justify="space-between"
-      alignItems="flex-start"
-      xs={9}
-      spacing={4}
-    >
+    <Grid id="event" container item alignItems="center" xs={12} spacing={3}>
       <Grid
         container
         item
         xs={12}
         direction="column"
-        justify="flex-start"
+        justify="center"
         alignItems="flex-start"
       >
         <Grid item className="guide-title">
@@ -151,17 +142,17 @@ const Event = (props) => {
       <Grid
         container
         item
-        xs={11}
+        xs={12}
         direction="column"
-        justify="flex-start"
-        alignItems="flex-start"
+        justify="center"
+        alignItems="center"
       >
         <AttendanceTable columns={event.dates} attendees={event.attendees} />
       </Grid>
-      <Grid container item xs={11} justify="space-between" spacing={4}>
-        <Grid container item xs={5} justify="flex-start" direction="column">
+      <Grid container item xs={12} justify="space-between" spacing={4}>
+        <Grid container item xs={11} justify="flex-start" direction="column">
           <Grid item className="guide-title">
-            出欠を入力しましょう
+            出欠を入力してください
           </Grid>
           <Grid item>
             <TextField
@@ -186,11 +177,11 @@ const Event = (props) => {
         <Grid
           container
           item
-          xs={7}
-          spacing={3}
+          xs={5}
+          spacing={1}
           justify="center"
           alignItems="flex-start"
-          direction="column"
+          direction="row"
         >
           {possibleDates.map((possibleDate) => {
             return (
@@ -204,7 +195,7 @@ const Event = (props) => {
           })}
         </Grid>
       </Grid>
-      <Grid container item xs={12} justify="flex-end" alignItems="flex-start">
+      <Grid container item xs={12} justify="center">
         <Button
           variant="contained"
           color="primary"
