@@ -4,7 +4,7 @@ import { firebaseApp } from "./config/firebase";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
-import { AttendanceTable, DateButtonGroup } from "./parts";
+import { AttendanceTable, DateButtonGroup, MultipleButtonList } from "./parts";
 import { attendeesObjectToArray } from "./DataConvert";
 
 import "./Event.css";
@@ -185,12 +185,13 @@ const Event = (props) => {
         >
           {possibleDates.map((possibleDate) => {
             return (
-              <DateButtonGroup
-                key={possibleDate.date}
-                date={possibleDate.date}
-                vote={possibleDate.vote}
-                onSelectVote={(vote) => onSelectVote(possibleDate.date, vote)}
-              />
+              <MultipleButtonList key={possibleDate.date} />
+              // <DateButtonGroup
+              //   key={possibleDate.date}
+              //   date={possibleDate.date}
+              //   vote={possibleDate.vote}
+              //   onSelectVote={(vote) => onSelectVote(possibleDate.date, vote)}
+              // />
             );
           })}
         </Grid>
