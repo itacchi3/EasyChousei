@@ -99,12 +99,49 @@ const EventEntry = (props) => {
       (a, b) => new Date(a) - new Date(b)
     );
     console.log(sortedPossibleDates);
+
+    const times = [];
+    switch (timeInterval[0]) {
+      case 15:
+        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+          times.push(i + ":00");
+          times.push(i + ":15");
+          times.push(i + ":45");
+        }
+        break;
+      case 30:
+        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+          times.push(i + ":00");
+          times.push(i + ":30");
+        }
+        break;
+      case 60:
+        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+          times.push(i + ":00");
+        }
+        break;
+      case 120:
+        for (let i = timeWidth[0]; i < timeWidth[1]; i = i + 2) {
+          times.push(i + ":00");
+        }
+        break;
+    }
+    console.log(sortedPossibleDates.length);
+    console.log(times.length);
+    const prospectiveDates = [];
+    for (let j = 0; j < sortedPossibleDates.length; j++) {
+      for (let k = 0; k < times.length; k++) {
+        prospectiveDates.push(sortedPossibleDates[j] + "  " + times[k]);
+      }
+    }
+
+    console.log(prospectiveDates);
     const eventData = {
       name: eventName,
       description: description,
       dates: sortedPossibleDates,
-      timeWidth: timeWidth,
-      timeInterval: timeInterval,
+      times: times,
+      prospectiveDates: prospectiveDates,
     };
     // 1-3-2.Realtime Databaseに整形した値を書き込もう
     // 1-4.イベントIDを取得して画面遷移しよう
