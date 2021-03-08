@@ -14,6 +14,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    backgroundColor: 'red'
+  },
+  paper2: {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    backgroundColor: 'blue'
   },
 }));
 
@@ -24,28 +31,32 @@ const MultipleButtonList = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>item</Paper>
+          <Paper className={classes.paper} onTouchMove={()=>{ChangeBackgroundColor()}}>item</Paper>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>item</Paper>
+          <Paper className={classes.paper} onTouchMove={()=>{ChangeBackgroundColor()}}>item</Paper>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>item</Paper>
+          <Paper className={classes.paper} onTouchMove={()=>{ChangeBackgroundColor()}}>item</Paper>
         </Grid>
       </React.Fragment>
     );
+
+    function ChangeBackgroundColor() {
+      console.log("mouseDown")
+    }
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container item xs={8} spacing={1}>
           <FormRow />
         </Grid>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container item xs={8} spacing={1}>
           <FormRow />
         </Grid>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container item xs={8} spacing={1}>
           <FormRow />
         </Grid>
       </Grid>
