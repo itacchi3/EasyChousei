@@ -209,6 +209,15 @@ const Event = (props) => {
           出欠を回答する
         </Button>
       </Grid>
+      <Grid container item xs={12} justify="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => registerAttendances()}
+        >
+          日程を入力する
+        </Button>
+      </Grid>
     </Grid>
   );
 };

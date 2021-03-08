@@ -9,7 +9,8 @@
     "react-dom": "^16.14.0",
     "react-multi-date-picker": "^2.2.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4"
+    "react-scripts": "^3.4.4",
+    "react-sticky-table": "^5.1.11"
   },
   "scripts": {
     "start": "react-scripts start",
