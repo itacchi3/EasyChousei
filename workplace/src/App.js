@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import Home from "./Home";
 import EventEntry from "./EventEntry";
 import Event from "./Event";
+import InputDates from "./InputDates";
 
 import "./App.css";
 
@@ -48,6 +49,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/event/" component={EventEntry} />
             <Route exact path="/event/:id" component={Event} />
+            <Route exact path="/input/" component={InputDates} />
           </Grid>
         </Grid>
       </BrowserRouter>

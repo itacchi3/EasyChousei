@@ -70,10 +70,12 @@ const Event = (props) => {
         name: eventData.name,
         description: eventData.description,
         dates: eventData.dates,
+        times: eventData.times,
+        prospectiveDates: eventData.prospectiveDates,
         attendees: attendeesObjectToArray(eventData.attendees),
       });
       // 2-5.候補日程を表示用に編集しよう
-      const newPossibleDate = eventData.dates.map((date) => {
+      const newPossibleDate = eventData.prospectiveDates.map((date) => {
         return {
           date: date,
           vote: "△",
@@ -147,7 +149,10 @@ const Event = (props) => {
         justify="center"
         alignItems="center"
       >
-        <AttendanceTable columns={event.dates} attendees={event.attendees} />
+        <AttendanceTable
+          columns={event.prospectiveDates}
+          attendees={event.attendees}
+        />
       </Grid>
       <Grid container item xs={12} justify="space-between" spacing={4}>
         <Grid container item xs={11} justify="flex-start" direction="column">
@@ -177,10 +182,10 @@ const Event = (props) => {
         <Grid
           container
           item
-          xs={5}
+          xs={10}
           spacing={1}
           justify="center"
-          alignItems="flex-start"
+          alignItems="center"
           direction="row"
         >
           {possibleDates.map((possibleDate) => {
@@ -202,6 +207,15 @@ const Event = (props) => {
           onClick={() => registerAttendances()}
         >
           出欠を回答する
+        </Button>
+      </Grid>
+      <Grid container item xs={12} justify="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => registerAttendances()}
+        >
+          日程を入力する
         </Button>
       </Grid>
     </Grid>
