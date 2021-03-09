@@ -49,7 +49,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/event/" component={EventEntry} />
             <Route exact path="/event/:id" component={Event} />
-            <Route exact path="/input/" component={InputDates} />
+            <Route exact path="/event/:id/input" component={InputDates} />
           </Grid>
         </Grid>
       </BrowserRouter>
