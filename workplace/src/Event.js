@@ -170,8 +170,15 @@ const Event = (props) => {
           attendees={event.attendees}
         />
       </Grid>
-      <Grid container item xs={12} justify="space-between" spacing={4}>
-        <Grid container item xs={11} justify="flex-start" direction="column">
+      <Grid
+        container
+        item
+        xs={12}
+        justify="flex-end"
+        alignItems="flex-end"
+        spacing={3}
+      >
+        <Grid container item xs={11} direction="column">
           <Grid item className="guide-title">
             出欠を入力してください
           </Grid>

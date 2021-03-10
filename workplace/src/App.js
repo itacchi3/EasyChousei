@@ -46,8 +46,8 @@ const App = () => {
             alignItems="center"
             justify="flex-start"
           >
-            <Route exact path="/" component={Home} />
-            <Route exact path="/event/" component={EventEntry} />
+            <Route exact path="/" component={EventEntry} />
+            {/* <Route exact path="/event/" component={EventEntry} /> */}
             <Route exact path="/event/:id" component={Event} />
             <Route exact path="/event/:id/input" component={InputDates} />
           </Grid>
