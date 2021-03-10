@@ -14,15 +14,18 @@ const firebaseDb = firebaseApp.database();
 const Event = (props) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [eventId, setEventId] = useState(props.match.params.id);
   // 2-1.ダミーデータを確認しよう
   // コメントアウトを外してください
   const [event, setEvent] = useState({
     name: "",
     description: "",
     dates: [],
+    times: [],
     attendees: [],
+    prospectiveDates: [],
   });
-  const [possibleDates, setPossibleDates] = useState([]);
+  // const [possibleDates, setPossibleDates] = useState([]);
 
   // 2-1.ダミーデータを確認しよう
   // コメントアウトしてください
@@ -59,8 +62,7 @@ const Event = (props) => {
 
   useEffect(() => {
     // 2-2-1.イベントIDを取得しよう
-    const eventId = props.match.params.id;
-    console.log(eventId + " 62");
+    // const eventId = props.match.params.id;
     // 2-2-2.Realtime Databaseから取得するデータを特定しよう
     firebaseDb.ref(`events/${eventId}`).on("value", (snapshot) => {
       // 2-2-3.Realtime Databaseからデータを取得しよう
@@ -75,53 +77,67 @@ const Event = (props) => {
         attendees: attendeesObjectToArray(eventData.attendees),
       });
       // 2-5.候補日程を表示用に編集しよう
-      const newPossibleDate = eventData.prospectiveDates.map((date) => {
-        return {
-          date: date,
-          vote: "△",
-        };
-      });
-      setPossibleDates(newPossibleDate);
+      // const newPossibleDate = eventData.prospectiveDates.map((date) => {
+      //   return {
+      //     date: date,
+      //     vote: "△",
+      //   };
+      // });
+      // setPossibleDates(newPossibleDate);
     });
-  }, [setEvent, setPossibleDates, props.match.params.id]);
+  }, [setEvent, props.match.params.id]);
 
   // 出欠回答欄で選択された◯△×の情報はこの関数でstateに保存しています。
-  const onSelectVote = (targetDate, selectedVote) => {
-    const newPossibleDates = possibleDates.map((possibleDate) => {
-      return possibleDate.date === targetDate
-        ? { ...possibleDate, vote: selectedVote }
-        : possibleDate;
-    });
-    setPossibleDates(newPossibleDates);
-  };
+  // const onSelectVote = (targetDate, selectedVote) => {
+  //   // const newPossibleDates = possibleDates.map((possibleDate) => {
+  //     return possibleDate.date === targetDate
+  //       ? { ...possibleDate, vote: selectedVote }
+  //       : possibleDate;
+  //   });
+  //   setPossibleDates(newPossibleDates);
+  // };
 
   // 名前入力欄、コメント入力欄、出欠選択欄のstateを初期状態に更新する関数
   const initializeAttendances = () => {
     setName("");
     setComment("");
-    setPossibleDates(
-      event.dates.map((date) => {
-        return {
-          date: date,
-          vote: "△",
-        };
-      })
-    );
+    // setPossibleDates(
+    //   event.dates.map((date) => {
+    //     return {
+    //       date: date,
+    //       vote: "△",
+    //     };
+    //   })
+    // );
   };
 
   // "出欠を回答する"ボタンを押すとこの関数が呼び出されます。
-  const registerAttendances = async () => {
-    // 2-6.出欠情報登録機能を追加しよう
+  // const registerAttendances = async () => {
+  //   // 2-6.出欠情報登録機能を追加しよう
+  //   const eventId = props.match.params.id;
+  //   const votes = possibleDates.map((possibleDate) => possibleDate.vote);
+  //   const attendeesData = {
+  //     name: name,
+  //     // votes: votes,
+  //     comment: comment,
+  //   };
+  //   // 出欠情報をRealTimeDatabaseに登録しましょう
+  //   firebaseDb.ref(`events/${eventId}/attendees`).push(attendeesData);
+  //   initializeAttendances();
+  // };
+
+  const answerDates = () => {
     const eventId = props.match.params.id;
-    const votes = possibleDates.map((possibleDate) => possibleDate.vote);
-    const attendeesData = {
-      name: name,
-      votes: votes,
-      comment: comment,
-    };
-    // 出欠情報をRealTimeDatabaseに登録しましょう
-    firebaseDb.ref(`events/${eventId}/attendees`).push(attendeesData);
-    initializeAttendances();
+    props.history.push({
+      pathname: `/event/${eventId}/input`,
+      state: {
+        event: event,
+        eventId: eventId,
+        name: name,
+        comment: comment,
+        // possibleDates: possibleDates,
+      },
+    });
   };
 
   return (
@@ -154,8 +170,15 @@ const Event = (props) => {
           attendees={event.attendees}
         />
       </Grid>
-      <Grid container item xs={12} justify="space-between" spacing={4}>
-        <Grid container item xs={11} justify="flex-start" direction="column">
+      <Grid
+        container
+        item
+        xs={12}
+        justify="flex-end"
+        alignItems="flex-end"
+        spacing={3}
+      >
+        <Grid container item xs={11} direction="column">
           <Grid item className="guide-title">
             出欠を入力してください
           </Grid>
@@ -188,7 +211,7 @@ const Event = (props) => {
           alignItems="center"
           direction="row"
         >
-          {possibleDates.map((possibleDate) => {
+          {/* {possibleDates.map((possibleDate) => {
             return (
               <DateButtonGroup
                 key={possibleDate.date}
@@ -197,10 +220,10 @@ const Event = (props) => {
                 onSelectVote={(vote) => onSelectVote(possibleDate.date, vote)}
               />
             );
-          })}
+          })} */}
         </Grid>
       </Grid>
-      <Grid container item xs={12} justify="center">
+      {/* <Grid container item xs={12} justify="center">
         <Button
           variant="contained"
           color="primary"
@@ -208,14 +231,14 @@ const Event = (props) => {
         >
           出欠を回答する
         </Button>
-      </Grid>
-      <Grid container item xs={12} justify="center">
+      </Grid> */}
+      <Grid container item xs={12} justify="center" size="large">
         <Button
           variant="contained"
           color="primary"
-          onClick={() => registerAttendances()}
+          onClick={() => answerDates()}
         >
-          日程を入力する
+          時間候補を入力する
         </Button>
       </Grid>
     </Grid>
