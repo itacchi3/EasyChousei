@@ -45,7 +45,11 @@ const bluetheme = createMuiTheme({
 const InputDates = (props) => {
   const classes = useStyles();
 
-  const [color, setColor] = useState("Green");
+  const [color, setColor] = useState("");
+  const [redVarient, setRedVarient] = useState("outlined");
+  const [greenVarient, setGreenVarient] = useState("outlined");
+  const [blueVarient, setBlueVarient] = useState("outlined");
+
   const [possibleDates, setPossibleDates] = useState(
     props.location.state.event.prospectiveDates.map((date) => {
       return {
@@ -76,15 +80,45 @@ const InputDates = (props) => {
   };
 
   const handleClickRed = () => {
-    setColor("Red");
+    if (color === "Red") {
+      setRedVarient("outlined");
+      setGreenVarient("outlined");
+      setBlueVarient("outlined");
+      setColor("");
+    } else {
+      setRedVarient("contained");
+      setGreenVarient("outlined");
+      setBlueVarient("outlined");
+      setColor("Red");
+    }
   };
 
   const handleClickGreen = () => {
-    setColor("Green");
+    if (color === "Green") {
+      setRedVarient("outlined");
+      setGreenVarient("outlined");
+      setBlueVarient("outlined");
+      setColor("");
+    } else {
+      setRedVarient("outlined");
+      setGreenVarient("contained");
+      setBlueVarient("outlined");
+      setColor("Green");
+    }
   };
 
   const handleClickBlue = () => {
-    setColor("Blue");
+    if (color === "Blue") {
+      setRedVarient("outlined");
+      setGreenVarient("outlined");
+      setBlueVarient("outlined");
+      setColor("");
+    } else {
+      setRedVarient("outlined");
+      setGreenVarient("outlined");
+      setBlueVarient("contained");
+      setColor("Blue");
+    }
   };
 
   const handleClickChange = (possibleDate) => {
@@ -198,7 +232,7 @@ const InputDates = (props) => {
           >
             <ThemeProvider theme={redtheme}>
               <Button
-                variant="contained"
+                variant={redVarient}
                 color="primary"
                 onClick={() => handleClickRed()}
               >
@@ -216,7 +250,7 @@ const InputDates = (props) => {
           >
             <ThemeProvider theme={greentheme}>
               <Button
-                variant="contained"
+                variant={greenVarient}
                 color="primary"
                 onClick={() => handleClickGreen()}
               >
@@ -234,7 +268,7 @@ const InputDates = (props) => {
           >
             <ThemeProvider theme={bluetheme}>
               <Button
-                variant="contained"
+                variant={blueVarient}
                 color="primary"
                 onClick={() => handleClickBlue()}
               >
