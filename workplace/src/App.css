@@ -1,11 +1,12 @@
 body {
   font-family: Hiragino Sans;
   color: #707070;
+  touch-action: pan-x pan-y;
 }
 
 .app-header {
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   color: #1FB3C7;
 }
 

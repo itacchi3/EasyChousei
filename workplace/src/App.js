@@ -35,7 +35,7 @@ const App = () => {
         >
           <Grid container item>
             <Grid item className="app-header">
-              調整くん
+              Easy調整入力くん
             </Grid>
           </Grid>
           <Grid

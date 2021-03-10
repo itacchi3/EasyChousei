@@ -3,14 +3,12 @@ import { StickyTable, Row, Cell } from "react-sticky-table";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import {
-  withStyles,
   createMuiTheme,
   ThemeProvider,
   makeStyles,
 } from "@material-ui/core/styles";
 import { green, red, blue } from "@material-ui/core/colors";
 import { firebaseApp } from "./config/firebase";
-import { attendeesObjectToArray } from "./DataConvert";
 
 const firebaseDb = firebaseApp.database();
 
@@ -45,8 +43,8 @@ const bluetheme = createMuiTheme({
 const InputDates = (props) => {
   const classes = useStyles();
 
-  const [color, setColor] = useState("");
-  const [redVarient, setRedVarient] = useState("outlined");
+  const [color, setColor] = useState("Red");
+  const [redVarient, setRedVarient] = useState("contained");
   const [greenVarient, setGreenVarient] = useState("outlined");
   const [blueVarient, setBlueVarient] = useState("outlined");
 
@@ -58,6 +56,23 @@ const InputDates = (props) => {
       };
     })
   );
+
+  // // スクロール関連メソッド
+  // const scroll_control = (event) => {
+  //   event.preventDefault();
+  // };
+  // // スクロール禁止
+  // const no_scroll = () => {
+  //   // スマホでのタッチ操作でのスクロール禁止
+  //   document.addEventListener("touchmove", scroll_control, { passive: false });
+  // };
+  // // スクロール禁止解除
+  // const return_scroll = () => {
+  //   // スマホでのタッチ操作でのスクロール禁止解除
+  //   document.removeEventListener("touchmove", scroll_control, {
+  //     passive: false,
+  //   });
+  // };
 
   const checkColor = (vote) => {
     switch (vote) {
@@ -81,43 +96,49 @@ const InputDates = (props) => {
 
   const handleClickRed = () => {
     if (color === "Red") {
-      setRedVarient("outlined");
-      setGreenVarient("outlined");
-      setBlueVarient("outlined");
-      setColor("");
+      // setRedVarient("outlined");
+      // setGreenVarient("outlined");
+      // setBlueVarient("outlined");
+      // setColor("");
+      // return_scroll();
     } else {
       setRedVarient("contained");
       setGreenVarient("outlined");
       setBlueVarient("outlined");
       setColor("Red");
+      // no_scroll();
     }
   };
 
   const handleClickGreen = () => {
     if (color === "Green") {
-      setRedVarient("outlined");
-      setGreenVarient("outlined");
-      setBlueVarient("outlined");
-      setColor("");
+      // setRedVarient("outlined");
+      // setGreenVarient("outlined");
+      // setBlueVarient("outlined");
+      // setColor("");
+      // return_scroll();
     } else {
       setRedVarient("outlined");
       setGreenVarient("contained");
       setBlueVarient("outlined");
       setColor("Green");
+      // no_scroll();
     }
   };
 
   const handleClickBlue = () => {
     if (color === "Blue") {
-      setRedVarient("outlined");
-      setGreenVarient("outlined");
-      setBlueVarient("outlined");
-      setColor("");
+      // setRedVarient("outlined");
+      // setGreenVarient("outlined");
+      // setBlueVarient("outlined");
+      // setColor("");
+      // return_scroll();
     } else {
       setRedVarient("outlined");
       setGreenVarient("outlined");
       setBlueVarient("contained");
       setColor("Blue");
+      // no_scroll();
     }
   };
 
@@ -161,7 +182,7 @@ const InputDates = (props) => {
         xs={12}
         spacing={4}
       >
-        <Grid container item style={{ width: "375px", height: "600px" }}>
+        <Grid container item style={{ width: "375px", height: "550px" }}>
           <StickyTable
             stickyHeaderCount={1}
             borderWidth={0}
@@ -193,6 +214,8 @@ const InputDates = (props) => {
                             ]
                           )
                         }
+                        onTouchEnd={() => console.log("Button touched.")}
+                        onTouchStart={() => console.log("Button touche.")}
                       >
                         {time}
                       </Button>
