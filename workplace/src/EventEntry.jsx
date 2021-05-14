@@ -7,10 +7,9 @@ import Chip from "@material-ui/core/Chip";
 import { TextField } from "@material-ui/core";
 import { Calendar } from "react-multi-date-picker";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 
-import "./EventEntry.css";
+import "./assets/styles/EventEntry.css";
 
 const firebaseDb = firebaseApp.database();
 
@@ -26,7 +25,6 @@ const useStyles = makeStyles({
 
 const EventEntry = (props) => {
   const classes = useStyles();
-  // 1-1.入力フォームの内容をstateに反映しよう
   // イベント名
   const [eventName, setEventName] = useState("");
   // 説明
@@ -38,19 +36,19 @@ const EventEntry = (props) => {
   // 時間区切り
   const [timeInterval, setTimeInterval] = useState([60]);
 
-  console.log(eventName);
-  console.log(description);
-  console.log(dates);
-  console.log(timeWidth);
-  console.log(timeInterval);
+  // console.log(eventName);
+  // console.log(description);
+  // console.log(dates);
+  // console.log(timeWidth);
+  // console.log(timeInterval);
 
-  const toString = Object.prototype.toString;
-  console.log(toString.call(dates[0]));
+  // const toString = Object.prototype.toString;
+  // console.log(toString.call(dates[0]));
 
-  const handleChange = (event, newTimeWidth) => {
+  const changeTimeWidth = (event, newTimeWidth) => {
     setTimeWidth(newTimeWidth);
   };
-  const handleChange2 = (event, newTimeInterval) => {
+  const changeTimeInterval = (event, newTimeInterval) => {
     setTimeInterval(newTimeInterval);
   };
   const marksTimeWidth = [
@@ -85,12 +83,11 @@ const EventEntry = (props) => {
       label: "120分",
     },
   ];
-  const possibleDates = dates.map((date) => date.day);
-  console.log(possibleDates);
+  // const possibleDates = dates.map((date) => date.day);
+  // console.log(possibleDates);
 
-  // "イベントを作る"ボタンを押すとregisterEvent関数が起動します。
   const registerEvent = async () => {
-    // 1-3-1.入力した値を整形しよう
+    //入力した値の整形
     const possibleDates = dates.map(
       (date) => date.year + "/" + date.month + "/" + date.day
     );
@@ -125,6 +122,9 @@ const EventEntry = (props) => {
           times.push(i + ":00");
         }
         break;
+
+      default:
+      // do nothing
     }
     console.log(sortedPossibleDates.length);
     console.log(times.length);
@@ -143,8 +143,8 @@ const EventEntry = (props) => {
       times: times,
       prospectiveDates: prospectiveDates,
     };
-    // 1-3-2.Realtime Databaseに整形した値を書き込もう
-    // 1-4.イベントIDを取得して画面遷移しよう
+    //Realtime Databaseに整形した値を書き込む
+    //イベントIDを取得して画面遷移
     const eventId = firebaseDb.ref("events").push(eventData).key;
     props.history.push(`/event/${eventId}`);
   };
@@ -167,18 +167,14 @@ const EventEntry = (props) => {
         </div>
         <TextField
           placeholder="イベント名"
-          //1-1入力された値をstateで管理しましょう
           onChange={(evt) => setEventName(evt.target.value)}
-          // 1-2.入力フォームの内容をstateから取得して表示しよう
           value={eventName}
           fullWidth={true}
           variant="outlined"
         />
         <TextField
           placeholder="説明"
-          //1-1入力された値をstateで管理しましょう
           onChange={(evt) => setDescription(evt.target.value)}
-          // 1-2.入力フォームの内容をstateから取得して表示しよう
           value={description}
           margin="normal"
           multiline
@@ -193,17 +189,6 @@ const EventEntry = (props) => {
           イベント候補日を入力
         </div>
         <Grid container item xs={11} justify="center" alignItems="center">
-          {/* <TextField
-            placeholder="例：12/4 18:00~"
-            value={dates}
-            // onChange={(evt) => setDates(evt.target.value)}
-            className="Guide-title"
-            multiline
-            rows={7}
-            fullWidth={true}
-            variant="outlined"
-          /> */}
-
           <Calendar value={dates} onChange={setDates} />
         </Grid>
       </Grid>
@@ -230,7 +215,7 @@ const EventEntry = (props) => {
         >
           <Slider
             value={timeWidth}
-            onChange={handleChange}
+            onChange={changeTimeWidth}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             step={1}
@@ -264,7 +249,7 @@ const EventEntry = (props) => {
         >
           <Slider
             value={timeInterval}
-            onChange={handleChange2}
+            onChange={changeTimeInterval}
             valueLabelDisplay="auto"
             aria-labelledby="track-false-slider"
             step={null}

@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StickyTable, Row, Cell } from "react-sticky-table";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import {
-  createMuiTheme,
-  ThemeProvider,
-  makeStyles,
-} from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, red, blue } from "@material-ui/core/colors";
 import { firebaseApp } from "./config/firebase";
 
 const firebaseDb = firebaseApp.database();
 
-const useStyles = makeStyles({
-  footer: {
-    paddingTop: 40,
-  },
-});
-
+//ボタンの赤色
 const redtheme = createMuiTheme({
   palette: {
     primary: {
@@ -25,6 +16,8 @@ const redtheme = createMuiTheme({
     },
   },
 });
+
+//ボタンの緑色
 const greentheme = createMuiTheme({
   palette: {
     primary: {
@@ -32,6 +25,8 @@ const greentheme = createMuiTheme({
     },
   },
 });
+
+//ボタンの青色
 const bluetheme = createMuiTheme({
   palette: {
     primary: {
@@ -41,13 +36,15 @@ const bluetheme = createMuiTheme({
 });
 
 const InputDates = (props) => {
-  const classes = useStyles();
-
+  //ボタンの色
   const [color, setColor] = useState("Red");
+  //入力ボタンが選択されているかどうか
   const [redVarient, setRedVarient] = useState("contained");
   const [greenVarient, setGreenVarient] = useState("outlined");
   const [blueVarient, setBlueVarient] = useState("outlined");
+  // const [scrollCheck, setScrollCheck] = useState(false);
 
+  //解答
   const [possibleDates, setPossibleDates] = useState(
     props.location.state.event.prospectiveDates.map((date) => {
       return {
@@ -58,30 +55,38 @@ const InputDates = (props) => {
   );
 
   // // スクロール関連メソッド
-  // const scroll_control = (event) => {
+  // //アロー関数だとバグる
+  // var scrollControl = function (event) {
   //   event.preventDefault();
   // };
+
   // // スクロール禁止
-  // const no_scroll = () => {
+  // const noScroll = () => {
+  //   setScrollCheck(false);
   //   // スマホでのタッチ操作でのスクロール禁止
-  //   document.addEventListener("touchmove", scroll_control, { passive: false });
+  //   document.addEventListener("touchmove", scrollControl, { passive: false });
+  //   console.log(scrollCheck);
   // };
   // // スクロール禁止解除
-  // const return_scroll = () => {
+  // const returnScroll = () => {
+  //   setScrollCheck(true);
   //   // スマホでのタッチ操作でのスクロール禁止解除
-  //   document.removeEventListener("touchmove", scroll_control, {
+  //   document.removeEventListener("touchmove", scrollControl, {
   //     passive: false,
   //   });
+  //   console.log(scrollCheck);
   // };
 
   const checkColor = (vote) => {
     switch (vote) {
-      case "o":
+      case "○":
         return redtheme;
       case "△":
         return greentheme;
-      case "x":
+      case "×":
         return bluetheme;
+      default:
+      // do nothing
     }
   };
 
@@ -100,13 +105,13 @@ const InputDates = (props) => {
       // setGreenVarient("outlined");
       // setBlueVarient("outlined");
       // setColor("");
-      // return_scroll();
+      // returnScroll();
     } else {
       setRedVarient("contained");
       setGreenVarient("outlined");
       setBlueVarient("outlined");
       setColor("Red");
-      // no_scroll();
+      // noScroll();
     }
   };
 
@@ -116,13 +121,13 @@ const InputDates = (props) => {
       // setGreenVarient("outlined");
       // setBlueVarient("outlined");
       // setColor("");
-      // return_scroll();
+      // returnScroll();
     } else {
       setRedVarient("outlined");
       setGreenVarient("contained");
       setBlueVarient("outlined");
       setColor("Green");
-      // no_scroll();
+      // noScroll();
     }
   };
 
@@ -132,39 +137,41 @@ const InputDates = (props) => {
       // setGreenVarient("outlined");
       // setBlueVarient("outlined");
       // setColor("");
-      // return_scroll();
+      // returnScroll();
     } else {
       setRedVarient("outlined");
       setGreenVarient("outlined");
       setBlueVarient("contained");
       setColor("Blue");
-      // no_scroll();
+      // noScroll();
     }
   };
 
   const handleClickChange = (possibleDate) => {
     switch (color) {
       case "Red":
-        onSelectVote(possibleDate.date, "o");
+        onSelectVote(possibleDate.date, "○");
         break;
       case "Green":
         onSelectVote(possibleDate.date, "△");
         break;
       case "Blue":
-        onSelectVote(possibleDate.date, "x");
+        onSelectVote(possibleDate.date, "×");
         break;
+      default:
+      // do nothing
     }
   };
 
   const registerAttendances = async () => {
-    // 2-6.出欠情報登録機能を追加しよう
+    //出欠情報登録機能
     const votes = possibleDates.map((possibleDate) => possibleDate.vote);
     const attendeesData = {
       name: props.location.state.name,
       votes: votes,
       comment: props.location.state.comment,
     };
-    // 出欠情報をRealTimeDatabaseに登録しましょう
+    // 出欠情報をRealTimeDatabaseに登録
     firebaseDb
       .ref(`events/${props.location.state.eventId}/attendees`)
       .push(attendeesData);
@@ -173,16 +180,23 @@ const InputDates = (props) => {
   };
 
   return (
+    // <div className={scrollCheck ? classes.scrollOn : classes.scrollOff}>
     <div>
       <Grid
         container
+        item
         direction="column"
         justify="center"
         alignItems="center"
         xs={12}
         spacing={4}
       >
-        <Grid container item style={{ width: "375px", height: "550px" }}>
+        <Grid
+          container
+          item
+          style={{ width: "375px", height: "550px" }}
+          // className={classes.scrollOff}
+        >
           <StickyTable
             stickyHeaderCount={1}
             borderWidth={0}
@@ -190,13 +204,13 @@ const InputDates = (props) => {
           >
             <Row>
               {props.location.state.event.dates.map((date) => (
-                <Cell>{date}</Cell>
+                <Cell key={date}>{date}</Cell>
               ))}
             </Row>
             {props.location.state.event.times.map((time, i) => (
-              <Row>
+              <Row key={time}>
                 {props.location.state.event.dates.map((date, j) => (
-                  <Cell>
+                  <Cell key={date}>
                     <ThemeProvider
                       theme={checkColor(
                         possibleDates[
@@ -214,8 +228,8 @@ const InputDates = (props) => {
                             ]
                           )
                         }
-                        onTouchEnd={() => console.log("Button touched.")}
-                        onTouchStart={() => console.log("Button touche.")}
+                        // onTouchEnd={() => console.log("Button touched.")}
+                        // onTouchStart={() => console.log("Button touche.")}
                       >
                         {time}
                       </Button>
@@ -245,32 +259,18 @@ const InputDates = (props) => {
           xs={12}
           spacing={5}
         >
-          <Grid
-            item
-            direction="row"
-            justify="center"
-            alignItems="center"
-            xs={4}
-            spacing={2}
-          >
+          <Grid item xs={4}>
             <ThemeProvider theme={redtheme}>
               <Button
                 variant={redVarient}
                 color="primary"
                 onClick={() => handleClickRed()}
               >
-                o
+                ○
               </Button>
             </ThemeProvider>
           </Grid>
-          <Grid
-            item
-            direction="row"
-            justify="center"
-            alignItems="center"
-            xs={4}
-            spacing={2}
-          >
+          <Grid item xs={4}>
             <ThemeProvider theme={greentheme}>
               <Button
                 variant={greenVarient}
@@ -281,26 +281,19 @@ const InputDates = (props) => {
               </Button>
             </ThemeProvider>
           </Grid>
-          <Grid
-            item
-            direction="row"
-            justify="center"
-            alignItems="center"
-            xs={4}
-            spacing={2}
-          >
+          <Grid item xs={4}>
             <ThemeProvider theme={bluetheme}>
               <Button
                 variant={blueVarient}
                 color="primary"
                 onClick={() => handleClickBlue()}
               >
-                x
+                ×
               </Button>
             </ThemeProvider>
           </Grid>
         </Grid>
-        <Grid item justify="center" alignItems="center" xs={12} spacing={4}>
+        <Grid item xs={12}>
           <Button
             variant="contained"
             color="primary"

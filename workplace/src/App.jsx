@@ -2,12 +2,11 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/styles";
-import Home from "./Home";
 import EventEntry from "./EventEntry";
 import Event from "./Event";
 import InputDates from "./InputDates";
 
-import "./App.css";
+import "./assets/styles/App.css";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 
@@ -47,7 +46,6 @@ const App = () => {
             justify="flex-start"
           >
             <Route exact path="/" component={EventEntry} />
-            {/* <Route exact path="/event/" component={EventEntry} /> */}
             <Route exact path="/event/:id" component={Event} />
             <Route exact path="/event/:id/input" component={InputDates} />
           </Grid>
