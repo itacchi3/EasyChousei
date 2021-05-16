@@ -183,12 +183,12 @@ const EventEntry = (props) => {
           variant="outlined"
         />
       </Grid>
-      <Grid container item xs={11} justify="flex-start">
+      <Grid container item xs={11}>
         <div className="guide-title">
           <Chip color="primary" label="2" className="guide-title__chip" />
           イベント候補日を入力
         </div>
-        <Grid container item xs={11} justify="center" alignItems="center">
+        <Grid container justify="center" alignItems="center">
           <Calendar value={dates} onChange={setDates} />
         </Grid>
       </Grid>

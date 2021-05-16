@@ -70,7 +70,14 @@ const Event = (props) => {
   };
 
   return (
-    <Grid id="event" container item alignItems="center" xs={12} spacing={3}>
+    <Grid
+      id="event"
+      container
+      alignItems="center"
+      xs={12}
+      justify="center"
+      spacing={3}
+    >
       <Grid
         container
         item
@@ -89,29 +96,33 @@ const Event = (props) => {
       <Grid
         container
         item
-        xs={12}
+        spacing={3}
         direction="column"
         justify="center"
         alignItems="center"
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => sharedScheduleByLine()}
-        >
-          友達へ共有する
-        </Button>
-        <AttendanceTable
-          columns={event.prospectiveDates}
-          attendees={event.attendees}
-        />
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => sharedScheduleByLine()}
+          >
+            友達へ共有する
+          </Button>
+        </Grid>
+        <Grid item container>
+          <AttendanceTable
+            columns={event.prospectiveDates}
+            attendees={event.attendees}
+          />
+        </Grid>
       </Grid>
       <Grid
         container
         item
         xs={12}
-        justify="flex-end"
-        alignItems="flex-end"
+        justify="center"
+        alignItems="center"
         spacing={3}
       >
         <Grid container item xs={11} direction="column">
