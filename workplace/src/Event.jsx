@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { AttendanceTable } from "./parts/index";
 import { attendeesObjectToArray } from "./DataConvert";
+import liff from "@line/liff";
 
 import "./assets/styles/Event.css";
 
@@ -40,6 +41,19 @@ const Event = (props) => {
       });
     });
   }, [setEvent, props.match.params.id]);
+
+  //Lineで友達にイベントリンクを共有
+  const sharedScheduleByLine = () => {
+    const eventId = props.match.params.id;
+    if (liff.isApiAvailable("shareTargetPicker")) {
+      liff.shareTargetPicker([
+        {
+          type: "text",
+          text: "https://liff.line.me/1655990844-zDNWJmmx/event/" + eventId,
+        },
+      ]);
+    }
+  };
 
   //時間候補入力へ移動
   const answerDates = () => {
@@ -80,6 +94,13 @@ const Event = (props) => {
         justify="center"
         alignItems="center"
       >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => sharedScheduleByLine()}
+        >
+          友達へ共有する
+        </Button>
         <AttendanceTable
           columns={event.prospectiveDates}
           attendees={event.attendees}
