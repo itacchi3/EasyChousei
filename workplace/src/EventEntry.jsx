@@ -284,25 +284,21 @@ const EventEntry = (props) => {
       </Grid>
 
       <Grid container item xs={12} justify="flex-end" className="button-area">
-        <Grid container item spacing={3} justify="flex-end">
-          <Grid item>
-            {eventNameValidation === false ? (
-              <p>イベント名を入力してください</p>
-            ) : (
-              <p>
-                <br />
-              </p>
-            )}
-          </Grid>
-          <Grid item>
-            {datesValidation === false ? (
-              <p>候補日を入力してください</p>
-            ) : (
-              <p>
-                <br />
-              </p>
-            )}
-          </Grid>
+        <Grid container item justify="flex-end">
+          {eventNameValidation === false ? (
+            <p>イベント名を入力してください</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+          {datesValidation === false ? (
+            <p>候補日を入力してください</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
         </Grid>
         <Grid item>
           <Button
