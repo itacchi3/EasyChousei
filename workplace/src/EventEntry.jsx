@@ -8,6 +8,7 @@ import { TextField } from "@material-ui/core";
 import { Calendar } from "react-multi-date-picker";
 import { makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
+import liff from "@line/liff";
 
 import "./assets/styles/EventEntry.css";
 
@@ -160,9 +161,39 @@ const EventEntry = (props) => {
         prospectiveDates: prospectiveDates,
       };
       //Realtime Databaseに整形した値を書き込む
-      //イベントIDを取得して画面遷移
-      const eventId = firebaseDb.ref("events").push(eventData).key;
-      props.history.push(`/event/${eventId}`);
+      //LINEに出欠表のURLを送信する
+
+      const eventPush = await firebaseDb.ref("events").push(eventData);
+      const eventId = eventPush.key;
+      await liff
+        .sendMessages([
+          {
+            type: "text",
+            text: "出欠表が完成したよ！",
+          },
+          {
+            type: "text",
+            text:
+              "【イベント名】\n" +
+              eventName +
+              "\n" +
+              "【概要】\n" +
+              description +
+              "\n" +
+              "https://liff.line.me/1656098585-v7VEeZ7Q/event/" +
+              eventId,
+            wrap: true,
+          },
+        ])
+        .then(() => {
+          console.log("message sent");
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+      // props.history.push(`/event/${eventId}`);
+      // liffアプリを閉じる
+      liff.closeWindow();
     }
   };
 

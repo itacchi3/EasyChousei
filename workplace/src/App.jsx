@@ -29,7 +29,7 @@ const App = () => {
     });
   };
   // Liff初期化
-  initializeLiff("1655990844-zDNWJmmx");
+  initializeLiff("1656098585-v7VEeZ7Q");
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,11 +41,6 @@ const App = () => {
           alignItems="center"
           spacing={3}
         >
-          <Grid container item>
-            <Grid item className="app-header">
-              Easy調整入力くん
-            </Grid>
-          </Grid>
           <Grid
             container
             item

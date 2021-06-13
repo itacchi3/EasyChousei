@@ -49,7 +49,16 @@ const Event = (props) => {
       liff.shareTargetPicker([
         {
           type: "text",
-          text: "https://liff.line.me/1655990844-zDNWJmmx/event/" + eventId,
+          text:
+            "【イベント名】\n" +
+            event.name +
+            "\n" +
+            "【概要】\n" +
+            event.description +
+            "\n" +
+            "https://liff.line.me/1656098585-v7VEeZ7Q/event/" +
+            eventId,
+          wrap: true,
         },
       ]);
     }
