@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import EventEntry from "./EventEntry";
 import Event from "./Event";
 import InputDates from "./InputDates";
+import liff from "@line/liff";
 
 import "./assets/styles/App.css";
 
@@ -22,6 +23,14 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const initializeLiff = (myLiffId) => {
+    liff.init({
+      liffId: myLiffId,
+    });
+  };
+  // Liff初期化
+  initializeLiff("1655990844-zDNWJmmx");
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>

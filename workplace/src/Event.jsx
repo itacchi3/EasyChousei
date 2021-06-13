@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { AttendanceTable } from "./parts/index";
 import { attendeesObjectToArray } from "./DataConvert";
+import liff from "@line/liff";
 
 import "./assets/styles/Event.css";
 
@@ -41,6 +42,19 @@ const Event = (props) => {
     });
   }, [setEvent, props.match.params.id]);
 
+  //Lineで友達にイベントリンクを共有
+  const sharedScheduleByLine = () => {
+    const eventId = props.match.params.id;
+    if (liff.isApiAvailable("shareTargetPicker")) {
+      liff.shareTargetPicker([
+        {
+          type: "text",
+          text: "https://liff.line.me/1655990844-zDNWJmmx/event/" + eventId,
+        },
+      ]);
+    }
+  };
+
   //時間候補入力へ移動
   const answerDates = () => {
     const eventId = props.match.params.id;
@@ -56,7 +70,14 @@ const Event = (props) => {
   };
 
   return (
-    <Grid id="event" container item alignItems="center" xs={12} spacing={3}>
+    <Grid
+      id="event"
+      container
+      alignItems="center"
+      xs={12}
+      justify="center"
+      spacing={3}
+    >
       <Grid
         container
         item
@@ -75,22 +96,33 @@ const Event = (props) => {
       <Grid
         container
         item
-        xs={12}
+        spacing={3}
         direction="column"
         justify="center"
         alignItems="center"
       >
-        <AttendanceTable
-          columns={event.prospectiveDates}
-          attendees={event.attendees}
-        />
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => sharedScheduleByLine()}
+          >
+            友達へ共有する
+          </Button>
+        </Grid>
+        <Grid item container>
+          <AttendanceTable
+            columns={event.prospectiveDates}
+            attendees={event.attendees}
+          />
+        </Grid>
       </Grid>
       <Grid
         container
         item
         xs={12}
-        justify="flex-end"
-        alignItems="flex-end"
+        justify="center"
+        alignItems="center"
         spacing={3}
       >
         <Grid container item xs={11} direction="column">

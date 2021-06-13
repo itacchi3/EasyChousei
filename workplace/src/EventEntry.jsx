@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import { firebaseApp } from "./config/firebase";
 import Grid from "@material-ui/core/Grid";
@@ -35,6 +35,9 @@ const EventEntry = (props) => {
   const [timeWidth, setTimeWidth] = useState([0, 24]);
   // 時間区切り
   const [timeInterval, setTimeInterval] = useState([60]);
+  // バリデーション
+  const [eventNameValidation, setEventNameValidation] = useState(true);
+  const [datesValidation, setDatesValidation] = useState(true);
 
   // console.log(eventName);
   // console.log(description);
@@ -83,71 +86,89 @@ const EventEntry = (props) => {
       label: "120分",
     },
   ];
-  // const possibleDates = dates.map((date) => date.day);
-  // console.log(possibleDates);
+  console.log(dates);
+
+  const errorCheck = () => {
+    if (eventName === "") {
+      setEventNameValidation(false);
+    } else {
+      setEventNameValidation(true);
+    }
+    if (dates.length === 0) {
+      setDatesValidation(false);
+    } else {
+      setDatesValidation(true);
+    }
+  };
 
   const registerEvent = async () => {
-    //入力した値の整形
-    const possibleDates = dates.map(
-      (date) => date.year + "/" + date.month + "/" + date.day
-    );
+    if (eventNameValidation && datesValidation) {
+      //入力した値の整形
+      const possibleDates = dates.map(
+        (date) => date.year + "/" + date.month + "/" + date.day
+      );
 
-    const sortedPossibleDates = [...possibleDates].sort(
-      (a, b) => new Date(a) - new Date(b)
-    );
-    console.log(sortedPossibleDates);
+      const sortedPossibleDates = [...possibleDates].sort(
+        (a, b) => new Date(a) - new Date(b)
+      );
+      console.log(sortedPossibleDates);
 
-    const times = [];
-    switch (timeInterval[0]) {
-      case 15:
-        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
-          times.push(i + ":00");
-          times.push(i + ":15");
-          times.push(i + ":45");
-        }
-        break;
-      case 30:
-        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
-          times.push(i + ":00");
-          times.push(i + ":30");
-        }
-        break;
-      case 60:
-        for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
-          times.push(i + ":00");
-        }
-        break;
-      case 120:
-        for (let i = timeWidth[0]; i < timeWidth[1]; i = i + 2) {
-          times.push(i + ":00");
-        }
-        break;
+      const times = [];
+      switch (timeInterval[0]) {
+        case 15:
+          for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+            times.push(i + ":00");
+            times.push(i + ":15");
+            times.push(i + ":45");
+          }
+          break;
+        case 30:
+          for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+            times.push(i + ":00");
+            times.push(i + ":30");
+          }
+          break;
+        case 60:
+          for (let i = timeWidth[0]; i < timeWidth[1]; i++) {
+            times.push(i + ":00");
+          }
+          break;
+        case 120:
+          for (let i = timeWidth[0]; i < timeWidth[1]; i = i + 2) {
+            times.push(i + ":00");
+          }
+          break;
 
-      default:
-      // do nothing
-    }
-    console.log(sortedPossibleDates.length);
-    console.log(times.length);
-    const prospectiveDates = [];
-    for (let j = 0; j < sortedPossibleDates.length; j++) {
-      for (let k = 0; k < times.length; k++) {
-        prospectiveDates.push(sortedPossibleDates[j] + "  " + times[k]);
+        default:
+        // do nothing
       }
-    }
+      console.log(sortedPossibleDates.length);
+      console.log(times.length);
+      const prospectiveDates = [];
+      for (let j = 0; j < sortedPossibleDates.length; j++) {
+        for (let k = 0; k < times.length; k++) {
+          prospectiveDates.push(sortedPossibleDates[j] + "  " + times[k]);
+        }
+      }
 
-    console.log(prospectiveDates);
-    const eventData = {
-      name: eventName,
-      description: description,
-      dates: sortedPossibleDates,
-      times: times,
-      prospectiveDates: prospectiveDates,
-    };
-    //Realtime Databaseに整形した値を書き込む
-    //イベントIDを取得して画面遷移
-    const eventId = firebaseDb.ref("events").push(eventData).key;
-    props.history.push(`/event/${eventId}`);
+      console.log(prospectiveDates);
+      const eventData = {
+        name: eventName,
+        description: description,
+        dates: sortedPossibleDates,
+        times: times,
+        prospectiveDates: prospectiveDates,
+      };
+      //Realtime Databaseに整形した値を書き込む
+      //イベントIDを取得して画面遷移
+      const eventId = firebaseDb.ref("events").push(eventData).key;
+      props.history.push(`/event/${eventId}`);
+    }
   };
+
+  useEffect(() => {
+    errorCheck();
+  }, [eventName, dates]);
 
   return (
     <Grid
@@ -183,12 +204,12 @@ const EventEntry = (props) => {
           variant="outlined"
         />
       </Grid>
-      <Grid container item xs={11} justify="flex-start">
+      <Grid container item xs={11}>
         <div className="guide-title">
           <Chip color="primary" label="2" className="guide-title__chip" />
           イベント候補日を入力
         </div>
-        <Grid container item xs={11} justify="center" alignItems="center">
+        <Grid container justify="center" alignItems="center">
           <Calendar value={dates} onChange={setDates} />
         </Grid>
       </Grid>
@@ -263,11 +284,29 @@ const EventEntry = (props) => {
       </Grid>
 
       <Grid container item xs={12} justify="flex-end" className="button-area">
+        <Grid container item justify="flex-end">
+          {eventNameValidation === false ? (
+            <p>イベント名を入力してください</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+          {datesValidation === false ? (
+            <p>候補日を入力してください</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+        </Grid>
         <Grid item>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => registerEvent()}
+            onClick={() => {
+              registerEvent();
+            }}
           >
             イベントを作る
           </Button>

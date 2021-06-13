@@ -194,7 +194,7 @@ const InputDates = (props) => {
         <Grid
           container
           item
-          style={{ width: "375px", height: "550px" }}
+          style={{ width: "375px", height: "400px" }}
           // className={classes.scrollOff}
         >
           <StickyTable
