@@ -22,7 +22,7 @@ LINE上で動く，スマホ入力に特化した，時間ごとの調整アプ�
 
 ## 使った技術は？？
 
-React, Firebase, Dockerを用いています．
+React, Liff, Firebase, Dockerを用いています．
 現在， TypescriptとNext.jsを用いて， 同じアプリケーションを作ろうとしています．
 https://github.com/itacchi3/NewEasyChousei
 
