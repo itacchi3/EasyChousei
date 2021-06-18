@@ -33,3 +33,5 @@ https://github.com/itacchi3/NewEasyChousei
 上のリンクからEasy調整入力くんのアカウントを友だち追加します．
 
 <img src="https://user-images.githubusercontent.com/72689870/122573292-93945180-d089-11eb-95e7-3929429d4e7c.JPG" width="150px">
+<img src="https://user-images.githubusercontent.com/72689870/122574013-2af9a480-d08a-11eb-8250-73faafde9239.jpg" width="150px">
+
