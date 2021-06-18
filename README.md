@@ -20,8 +20,14 @@ LINE上で動く，スマホ入力に特化した，時間ごとの調整アプ�
 
 会議や練習などの日程調整をよくするサークルや，バイトのシフトを提出する際に使ってほしいです．
 
+## 使った技術は？？
+
+React, Firebase, Dockerを用いています．
+現在， TypescriptとNext.jsを用いて， 同じアプリケーションを作ろうとしています．
+https://github.com/itacchi3/NewEasyChousei
+
 ## URL
 <https://lin.ee/InOsTpg/>
 
 ## 使い方
-Easy調整入力くんの公式アカウントと友だちになり，スマホ上で操作してください．
+上のリンクからEasy調整入力くんの
