@@ -30,4 +30,5 @@ https://github.com/itacchi3/NewEasyChousei
 <https://lin.ee/InOsTpg/>
 
 ## 使い方
-上のリンクからEasy調整入力くんの
+上のリンクからEasy調整入力くんのアカウントを友だち追加します．
+![IMG_0171](https://user-images.githubusercontent.com/72689870/122573292-93945180-d089-11eb-95e7-3929429d4e7c.JPG)
