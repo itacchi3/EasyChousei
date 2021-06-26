@@ -65,10 +65,10 @@ https://github.com/itacchi3/NewEasyChousei
 
 ```shell
 $ docker-compose build //コンテナの構築
+$ docker-compose run --rm react sh -c "npm install" //npmパッケージをインストール
 $ docker-compose up -d // バックグラウンドでコンテナを起動
 $ docker exec -it "作成したコンテナの名前"_react_1 /bin/ash // 起動しているコンテナにログイン
 $ cd workplace //ワークプレイスに移動
-$ npm install //npmパッケージをインストール
 ```
 
 
