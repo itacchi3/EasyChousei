@@ -1,4 +1,9 @@
 # Easy調整入力くん
+## 現在
+TypescriptとNext.js, Chakra UIを用いて， より使いやすさに特化したものを作ろうとしています．
+https://github.com/itacchi3/NewEasyChousei
+
+
 ## 概要
 
 LINE上で動く，スマホ入力に特化した，時間ごとの調整アプリケーションです．
