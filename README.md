@@ -1,6 +1,6 @@
 # Easy調整入力くん
 ## 現在
-TypescriptとNext.js, Chakra UIを用いて， より使いやすさに特化したものを作ろうとしています．
+TypescriptとNext.js, Chakra UIを用いて， より使いやすさに特化したものを作りました．
 https://github.com/itacchi3/chousei
 
 
